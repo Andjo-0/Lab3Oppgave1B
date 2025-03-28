@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<robot name="qube_model">
+
+<link name="world">
+  <visual>
+    <geometry>
+    </geometry>
+  </visual>
+</link>
+
+<link name="base_link">
+  <visual>
+    <geometry>
+    </geometry>
+  </visual>
+</link>
+
+  <link name="stator_link">
+    <visual>
+      <geometry>
+        <box size="0.102 0.102 0.102"/>
+      </geometry>
+      <material name="black">
+         <color rgba="0 0 0 1"/>  <!-- RGB for black -->
+      </material>
+    </visual>
+  </link>
+
+    <link name="rotor_link">
+      <visual>
+        <geometry>
+          <cylinder length="0.010" radius="0.025"/>
+        </geometry>
+        <material name="red">
+          <color rgba="1 0 0 1"/>
+        </material>
+      </visual>
+    </link>
+
+    <link name="angle_link">
+      <visual>
+        <geometry>
+          <box size="0.025 0.002 0.002"/>
+        </geometry>
+       <material name="white">
+        <color rgba="1 1 1 1"/>  <!-- RGB for white -->
+       </material>
+      </visual>
+    </link>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+    <joint name="stator_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="stator_link"/>
+      <origin xyz="0 0 0.050" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="angle" type="revolute">
+      <parent link="stator_link"/>
+      <child link="rotor_link"/>
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+      <limit lower="-3.14" upper="3.14" effort="10" velocity="1.0"/>
+      <axis xyz="0 0 1"/> <!-- This ensures the rotation is about the Z-axis -->
+    </joint>
+
+    <joint name="indicator" type="fixed">
+      <parent link="rotor_link"/>
+      <child link="angle_link"/>
+      <origin xyz="0.012 0 0.005" rpy="0 0 0"/>
+    </joint>
+
+</robot>
