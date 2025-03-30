@@ -31,9 +31,9 @@ def generate_launch_description():
     ))
 
     ld.add_action(DeclareLaunchArgument(
-    name='urdf_package_path',
-    default_value='urdf/joint_model.urdf',
-    description='Path within the package to the URDF file'
+        name='urdf_package_path',
+        default_value='urdf/joint_model.urdf',
+        description='Path within the package to the URDF file'
     ))
 
     ld.add_action(IncludeLaunchDescription(
@@ -63,4 +63,3 @@ def generate_launch_description():
         arguments=['-d', LaunchConfiguration('rviz_config')],
     ))
     return ld
-
